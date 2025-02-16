@@ -1,10 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import ProductCards from './components/ProductCards';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Dit is een component!</Text>
+      <ScrollView>
+        <ProductCards />
+        <ProductCards />
+        <ProductCards />
+        <ProductCards />
+      </ScrollView>
       <StatusBar style="auto" />
     </View>
   );
@@ -12,9 +19,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 60,
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });
