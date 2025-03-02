@@ -1,16 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, Image } from 'react-native';
+import React, { useState } from 'react';
+import {StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 
 const ProductDetails = ({route})=>{
   const { title, subtitle, price, image } = route.params;
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(price); // Nieuwe state voor de totale prijs
+
+  const increaseQuantity = () => {
+    setQuantity(prevQuantity => {
+      const newQuantity = prevQuantity + 1;
+      setTotalPrice(newQuantity * price); // Update de totale prijs
+      return newQuantity;
+    });
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prevQuantity => {
+        const newQuantity = prevQuantity - 1;
+        setTotalPrice(newQuantity * price); // Update de totale prijs
+        return newQuantity;
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
       <Text style={styles.subtitle}>{subtitle}</Text>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>€{price}</Text>
+      <Text style={styles.price}>€{totalPrice.toFixed(2)}</Text>
+
+      <View style={styles.quantityContainer}>
+        
+        <TouchableOpacity onPress={decreaseQuantity}>
+          <Text style={styles.quantityText}>-</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.quantityText}>{quantity}</Text>
+
+        <TouchableOpacity onPress={increaseQuantity}>
+          <Text style={styles.quantityText}>+</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>ADD TO CART</Text>
+      </TouchableOpacity>
 
       <StatusBar style="auto" />
     </View>
@@ -41,6 +79,31 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 22,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  quantityText: {
+    fontSize: 24,
+    marginHorizontal: 10,
+  },
+  button: {
+    backgroundColor: '#dbdbdb',
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+    marginTop: 10,
+    marginBottom: 15,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
