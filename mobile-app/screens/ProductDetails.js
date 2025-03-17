@@ -1,26 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-
-const ProductDetails = ({route})=>{
+const ProductDetails = ({ route }) => {
   const { title, subtitle, price, image } = route.params;
+
+  const parsedPrice = parseFloat(price) || 0; // Zorg ervoor dat price altijd een nummer is
   const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(price); // Nieuwe state voor de totale prijs
+  const [totalPrice, setTotalPrice] = useState(parsedPrice);
 
   const increaseQuantity = () => {
-    setQuantity(prevQuantity => {
+    setQuantity((prevQuantity) => {
       const newQuantity = prevQuantity + 1;
-      setTotalPrice(newQuantity * price); // Update de totale prijs
+      setTotalPrice(newQuantity * parsedPrice);
       return newQuantity;
     });
   };
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(prevQuantity => {
+      setQuantity((prevQuantity) => {
         const newQuantity = prevQuantity - 1;
-        setTotalPrice(newQuantity * price); // Update de totale prijs
+        setTotalPrice(newQuantity * parsedPrice);
         return newQuantity;
       });
     }
@@ -34,7 +35,6 @@ const ProductDetails = ({route})=>{
       <Text style={styles.price}>€{totalPrice.toFixed(2)}</Text>
 
       <View style={styles.quantityContainer}>
-        
         <TouchableOpacity onPress={decreaseQuantity}>
           <Text style={styles.quantityText}>-</Text>
         </TouchableOpacity>
@@ -53,7 +53,7 @@ const ProductDetails = ({route})=>{
       <StatusBar style="auto" />
     </View>
   );
-} 
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +106,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
 
 export default ProductDetails;
