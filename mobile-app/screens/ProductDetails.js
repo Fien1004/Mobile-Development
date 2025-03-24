@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 const ProductDetails = ({ route }) => {
-  const { title, subtitle, price, image } = route.params;
+  const { id, title, subtitle, price, image } = route.params;
 
-  const parsedPrice = parseFloat(price) || 0; // Zorg ervoor dat price altijd een nummer is
+  const parsedPrice = parseFloat(price) || 0;
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(parsedPrice);
 
