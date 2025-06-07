@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import ProductCard from "../components/ProductCards";
 import { Picker } from "@react-native-picker/picker";
 
@@ -14,7 +13,7 @@ const categoriesNames = {
   "67c416206cdcf41ed2adf12e": "Disney",
 };
 
-const Products = ({ navigation }) => {
+const ProductsPage = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,7 +63,7 @@ const Products = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Funko</Text>
+
 
       <TextInput
         style={styles.searchInput}
@@ -104,11 +103,40 @@ const Products = ({ navigation }) => {
             price={product.price}
             image={product.image}
             onPress={() => navigation.navigate("ProductDetails", { product })}
-            />
-          ))}
+          />
+        ))}
       </ScrollView>
 
       <StatusBar style="auto" />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  searchInput: {
+    width: "90%",
+    height: 40,
+    marginVertical: 20,
+    padding: 10,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  picker: {
+    width: "90%",
+    height: 60,
+  },
+});
+
+export default ProductsPage;
