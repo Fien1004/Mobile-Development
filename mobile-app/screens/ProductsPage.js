@@ -15,7 +15,7 @@ const categoriesNames = {
   "684402a11405ebdb01d4ddba": "COMING SOON",
 };
 
-const ProductsPage = ({ navigation }) => {
+const Products = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");

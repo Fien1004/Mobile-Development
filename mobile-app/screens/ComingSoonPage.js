@@ -15,7 +15,7 @@ const categoriesNames = {
   "684402a11405ebdb01d4ddba": "COMING SOON",
 };
 
-const ComingSoonPage = ({ navigation }) => {
+const ComingSoon = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("price-asc");
@@ -64,6 +64,7 @@ const ComingSoonPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>Coming Soon</Text>
       <TextInput
         style={styles.searchInput}
         placeholder="Zoeken..."

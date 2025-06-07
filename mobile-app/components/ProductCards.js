@@ -9,7 +9,7 @@ const ProductCards = ({ title, category, image, price, onPress }) => {
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{price}</Text>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>ADD TO CART</Text>
+        <Text style={styles.buttonText}>BEKIJK DETAILS</Text>
       </TouchableOpacity>
     </View>
   );

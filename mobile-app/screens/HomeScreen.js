@@ -6,11 +6,11 @@ const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const GoProducts = () => {
-    navigation.navigate("ProductsPage");
+    navigation.navigate("Products");
   };
 
   const GoComingSoon = () => {
-    navigation.navigate("ComingSoonPage");
+    navigation.navigate("ComingSoon");
   };
 
 
@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
 
         <TouchableOpacity style={styles.button} onPress={GoComingSoon}>
           <Image
-            source={require("../images/SabrinaCarpenter.png")}
+            source={require("../images/ComingSoonCasper.png")}
             style={styles.buttonImage}
           />
           <Text style={styles.buttonText}>COMING SOON</Text>
