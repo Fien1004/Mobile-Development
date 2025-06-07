@@ -1,10 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
+import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
+
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import ProductCard from "../components/ProductCards";
-import ProductsPage from "./ProductsPage";
-
-
+import { Picker } from "@react-native-picker/picker";
 
 const categoriesNames = {
   "": "Alle Categoriën",
@@ -15,7 +14,7 @@ const categoriesNames = {
   "67c416206cdcf41ed2adf12e": "Disney",
 };
 
-const HomeScreen = ({ navigation }) => {
+const Products = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,10 +62,6 @@ const HomeScreen = ({ navigation }) => {
       return 0;
     });
 
-    const onPress = () => {
-      navigation.navigate("ProductsPage");
-    };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Funko</Text>
@@ -77,10 +72,28 @@ const HomeScreen = ({ navigation }) => {
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-      
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>PRODUCTEN</Text>
-      </TouchableOpacity>
+
+      <Picker
+        selectedValue={selectCategory}
+        onValueChange={(value) => setSelectCategory(value)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Alle Categoriën" value="" />
+        {[...new Set(products.map((p) => p.category))].map((category) => (
+          <Picker.Item label={category} value={category} key={category} />
+        ))}
+      </Picker>
+
+      <Picker
+        selectedValue={sortOption}
+        onValueChange={(value) => setSortOption(value)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Prijs: Laag naar Hoog" value="price-asc" />
+        <Picker.Item label="Prijs: Hoog naar Laag" value="price-desc" />
+        <Picker.Item label="Naam: A-Z" value="name-asc" />
+        <Picker.Item label="Naam: Z-A" value="name-desc" />
+      </Picker>
 
       <ScrollView>
         {filteredProducts.map((product) => (
@@ -99,43 +112,3 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-  },
-  searchInput: {
-    width: "90%",
-    height: 40,
-    marginVertical: 20,
-    padding: 10,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  button: {
-    backgroundColor: '#dbdbdb',
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    borderRadius: 20,
-    marginTop: 10,
-    marginBottom: 15,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'black',
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
-
-export default HomeScreen;

@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const ProductCards = ({ title, subtitle, image, price, onPress }) => {
+const ProductCards = ({ title, category, image, price, onPress }) => {
   return (
     <View style={styles.card}>
       <Image source={image} style={styles.image} />
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      <Text style={styles.category}>{category}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{price}</Text>
       <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     height: 160,
     borderRadius: 10,
   },
-  subtitle: {
+  category: {
     color: 'gray',
     fontSize: 14,
   },

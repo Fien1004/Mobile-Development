@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 const ProductDetails = ({ route }) => {
-  const { id, title, subtitle, price, image } = route.params;
+  const { product } = route.params;
+  const { id, title, subtitle, price, image } = product;
 
   const parsedPrice = parseFloat(price) || 0;
   const [quantity, setQuantity] = useState(1);
@@ -30,9 +31,9 @@ const ProductDetails = ({ route }) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
-      <Text style={styles.subtitle}>{subtitle}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{totalPrice.toFixed(2)}</Text>
+      <Text style={styles.subtitle}>{subtitle}</Text>
 
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={decreaseQuantity}>
