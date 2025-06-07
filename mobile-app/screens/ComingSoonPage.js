@@ -15,9 +15,8 @@ const categoriesNames = {
   "684402a11405ebdb01d4ddba": "COMING SOON",
 };
 
-const ProductsPage = ({ navigation }) => {
+const ComingSoonPage = ({ navigation }) => {
   const [products, setProducts] = useState([]);
-  const [selectCategory, setSelectCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("price-asc");
 
@@ -34,16 +33,16 @@ const ProductsPage = ({ navigation }) => {
       })
       .then((data) =>
         setProducts(
-          data.items.map((item) => ({
-            id: item.product.id,
-            title: item.product.fieldData.name,
-            subtitle: item.product.fieldData.description,
-            price: (item.skus[0]?.fieldData.price.value || 0) / 100,
-            image: { uri: item.skus[0]?.fieldData["main-image"]?.url },
-            category:
-              categoriesNames[item.product.fieldData.category?.[0]] || "Onbekend",
-          }))
-        )
+            data.items.map((item) => ({
+              id: item.product.id,
+              title: item.product.fieldData.name,
+              subtitle: item.product.fieldData.description,
+              price: (item.skus[0]?.fieldData.price.value || 0) / 100,
+              image: { uri: item.skus[0]?.fieldData["main-image"]?.url },
+              category:
+                categoriesNames[item.product.fieldData.category?.[0]] || "Onbekend",
+            }))
+          )
       )
       .catch((err) => console.error("Fetch error:", err));
   }, []);
@@ -52,8 +51,7 @@ const ProductsPage = ({ navigation }) => {
   const filteredProducts = products
     .filter(
       (p) =>
-        p.category !== "COMING SOON" && // Voeg deze regel toe om producten met de categorie "COMING SOON" uit te sluiten
-        (selectCategory === "" || p.category === selectCategory) &&
+        p.category === "COMING SOON" && // Alleen producten met de categorie "COMING SOON" weergeven
         p.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
@@ -72,17 +70,6 @@ const ProductsPage = ({ navigation }) => {
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-
-      <Picker
-        selectedValue={selectCategory}
-        onValueChange={(value) => setSelectCategory(value)}
-        style={styles.picker}
-      >
-        <Picker.Item label="Alle Categoriën" value="" />
-        {[...new Set(products.map((p) => p.category))].map((category) => (
-          <Picker.Item label={category} value={category} key={category} />
-        ))}
-      </Picker>
 
       <Picker
         selectedValue={sortOption}
@@ -136,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductsPage;
+export default ComingSoonPage;

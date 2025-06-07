@@ -1,29 +1,26 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
-import ProductCard from "../components/ProductCards";
-
-
-
-const categoriesNames = {
-  "": "Alle Categoriën",
-  "67c419efaae04b2cda7e2d58": "POP!",
-  "67c4181f02b65c00eb6a98e3": "Star Wars",
-  "67c4175470acacede45d45cf": "Movies",
-  "67c416b33ac97fdfe9ee2854": "Music",
-  "67c416206cdcf41ed2adf12e": "Disney",
-};
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
 
 const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-    const onPress = () => {
-      navigation.navigate("ProductsPage");
-    };
+  const GoProducts = () => {
+    navigation.navigate("ProductsPage");
+  };
+
+  const GoComingSoon = () => {
+    navigation.navigate("ComingSoonPage");
+  };
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>FUNKO</Text>
+    <ScrollView>
+              <Image
+          source={require("../images/Funko.svg.png")}
+          style={styles.logo}
+        />
 
       <TextInput
         style={styles.searchInput}
@@ -31,16 +28,34 @@ const HomeScreen = ({ navigation }) => {
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-      
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>PRODUCTEN</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={GoProducts}>
+          <Image
+            source={require("../images/SabrinaCarpenter.png")}
+            style={styles.buttonImage}
+          />
+          <Text style={styles.buttonText}>POP!</Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity style={styles.button} onPress={GoComingSoon}>
+          <Image
+            source={require("../images/SabrinaCarpenter.png")}
+            style={styles.buttonImage}
+          />
+          <Text style={styles.buttonText}>COMING SOON</Text>
+        </TouchableOpacity>
+
+      <StatusBar style="auto" />
+    </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  logo: {
+    width: 310,
+    height: 110,
+    marginBottom: 20,
+  },
   container: {
     paddingTop: 20,
     paddingBottom: 20,
@@ -70,9 +85,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignItems: 'center',
   },
+  buttonImage: {
+    width: 250,
+    height: 250,
+    marginBottom: 5,
+  },
   buttonText: {
     color: 'black',
-    fontSize: 14,
+    fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
   },

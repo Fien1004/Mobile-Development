@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 const ProductDetails = ({ route }) => {
   const { product } = route.params;
@@ -33,7 +33,9 @@ const ProductDetails = ({ route }) => {
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{totalPrice.toFixed(2)}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      <ScrollView>
+        <Text style={styles.subtitle}>{subtitle}</Text>
+      </ScrollView>
 
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={decreaseQuantity}>
