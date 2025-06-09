@@ -13,6 +13,9 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("ComingSoon");
   };
 
+  const GoBlogs = () => {
+    navigation.navigate("Blogs");
+  };
 
   return (
     <View style={styles.container}>
@@ -42,6 +45,14 @@ const HomeScreen = ({ navigation }) => {
             style={styles.buttonImage}
           />
           <Text style={styles.buttonText}>COMING SOON</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={GoBlogs}>
+          <Image
+            source={require("../images/ComingSoonCasper.png")}
+            style={styles.buttonImage}
+          />
+          <Text style={styles.buttonText}>BLOGS</Text>
         </TouchableOpacity>
 
       <StatusBar style="auto" />

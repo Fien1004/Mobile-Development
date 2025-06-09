@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductsPage;
+export default Products;

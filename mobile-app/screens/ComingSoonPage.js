@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ComingSoonPage;
+export default ComingSoon;

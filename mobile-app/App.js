@@ -7,6 +7,8 @@ import HomeScreen from './screens/HomeScreen.js';
 import ProductsPage from './screens/ProductsPage.js';
 import ProductDetails from './screens/ProductDetails.js';
 import ComingSoonPage from './screens/ComingSoonPage.js';
+import BlogScreen from './screens/BlogScreen.js';
+import BlogDetails from './screens/BlogDetails.js';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +20,8 @@ export default function App() {
         <Stack.Screen name="Products" component={ProductsPage} />
         <Stack.Screen name="ComingSoon" component={ComingSoonPage} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        <Stack.Screen name="Blogs" component={BlogScreen} />
+        <Stack.Screen name="BlogDetails" component={BlogDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
