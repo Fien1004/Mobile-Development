@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
 
@@ -18,46 +17,34 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-    <ScrollView>
-              <Image
-          source={require("../images/Funko.svg.png")}
-          style={styles.logo}
-        />
+  <View style={styles.buttonContainer}>
+    <Image
+      source={require("../images/Funko.svg.png")}
+      style={styles.logo}
+    />
 
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Zoeken..."
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-        <TouchableOpacity style={styles.button} onPress={GoProducts}>
-          <Image
-            source={require("../images/SabrinaCarpenter.png")}
-            style={styles.buttonImage}
-          />
-          <Text style={styles.buttonText}>POP!</Text>
-        </TouchableOpacity>
+    <TextInput
+      style={styles.searchInput}
+      placeholder="Zoeken..."
+      value={searchQuery}
+      onChangeText={setSearchQuery}
+    />
 
-        <TouchableOpacity style={styles.button} onPress={GoComingSoon}>
-          <Image
-            source={require("../images/ComingSoonCasper.png")}
-            style={styles.buttonImage}
-          />
-          <Text style={styles.buttonText}>COMING SOON</Text>
-        </TouchableOpacity>
+    <TouchableOpacity style={styles.button} onPress={GoProducts}>
+      <Image source={require("../images/SabrinaCarpenter.png")} style={styles.buttonImage} />
+      <Text style={styles.buttonText}>POP!</Text>
+    </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={GoBlogs}>
-          <Image
-            source={require("../images/ComingSoonCasper.png")}
-            style={styles.buttonImage}
-          />
-          <Text style={styles.buttonText}>BLOGS</Text>
-        </TouchableOpacity>
+    <TouchableOpacity style={styles.button} onPress={GoComingSoon}>
+      <Image source={require("../images/ComingSoonCasper.png")} style={styles.buttonImage} />
+      <Text style={styles.buttonText}>COMING SOON</Text>
+    </TouchableOpacity>
 
-      <StatusBar style="auto" />
-    </ScrollView>
-    </View>
+    <TouchableOpacity style={styles.button} onPress={GoBlogs}>
+      <Image source={require("../images/Pop_Logo.png")} style={styles.buttonImage} />
+      <Text style={styles.buttonText}>BLOGS</Text>
+    </TouchableOpacity>
+  </View>
   );
 };
 
@@ -65,7 +52,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 310,
     height: 110,
-    marginBottom: 20,
+    marginBottom: 5,
+    marginTop: 20,
   },
   container: {
     paddingTop: 20,
@@ -87,19 +75,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10,
+  },
   button: {
     backgroundColor: '#dbdbdb',
     paddingVertical: 10,
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     borderRadius: 20,
-    marginTop: 10,
-    marginBottom: 15,
+    margin: 10,
     alignItems: 'center',
+    width: 180,
   },
   buttonImage: {
-    width: 250,
-    height: 250,
+    width: 200,
+    height: 150, 
     marginBottom: 5,
+    resizeMode: 'contain', 
   },
   buttonText: {
     color: 'black',

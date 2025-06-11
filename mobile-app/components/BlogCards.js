@@ -1,4 +1,3 @@
- import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const BlogCard = ({ title, image, date, post, onPress }) => {
@@ -8,6 +7,9 @@ const BlogCard = ({ title, image, date, post, onPress }) => {
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.date}>{date}</Text>
       <Text style={styles.post}>{post}</Text>
+            <TouchableOpacity style={styles.button} onPress={onPress}>
+              <Text style={styles.buttonText}>Lees hier</Text>
+            </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -44,6 +46,21 @@ const styles = StyleSheet.create({
   post: {
     fontSize: 16,
     color: '#444',
+  },
+    button: {
+    backgroundColor: '#3898ec',
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+    marginTop: 10,
+    marginBottom: 15,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

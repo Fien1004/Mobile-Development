@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { CartContext } from '../components/CartContext.js'; // ✅ Zorg dat dit pad klopt
 
 const ProductDetails = ({ route }) => {
   const { product } = route.params;
@@ -9,6 +10,8 @@ const ProductDetails = ({ route }) => {
   const parsedPrice = parseFloat(price) || 0;
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(parsedPrice);
+
+  const { addToCart } = useContext(CartContext); // ✅ Haal addToCart uit context
 
   const increaseQuantity = () => {
     setQuantity((prevQuantity) => {
@@ -28,11 +31,16 @@ const ProductDetails = ({ route }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    addToCart(product, quantity); // ✅ Voeg toe aan winkelmandje
+  };
+
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{totalPrice.toFixed(2)}</Text>
+
       <ScrollView>
         <Text style={styles.subtitle}>{subtitle}</Text>
       </ScrollView>
@@ -49,7 +57,7 @@ const ProductDetails = ({ route }) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
         <Text style={styles.buttonText}>ADD TO CART</Text>
       </TouchableOpacity>
 

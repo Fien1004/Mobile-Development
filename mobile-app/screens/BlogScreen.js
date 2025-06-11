@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
-import BlogCards from '../components/BlogCards.js'; 
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import BlogCard from '../components/BlogCards.js';
 
 const Blogs = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
@@ -18,70 +17,46 @@ const Blogs = ({ navigation }) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data.items); 
         setPosts(data.items.map((item) => ({
           id: item._id,
-          title: item.fieldData?.name || 'No title',  
-          image: item.fieldData?.["thumbnail-image"] ? { uri: item.fieldData["thumbnail-image"].url } : null, 
-          date: item.fieldData?.['publish-date'] || 'No date', 
-          summary: item.fieldData?.['post-summary'] || 'No summary available',  
-          content: item.fieldData?.['post-body'] || 'No content available',  
-        })))
+          title: item.fieldData?.name || 'No title',
+          image: item.fieldData?.["thumbnail-image"] ? { uri: item.fieldData["thumbnail-image"].url } : null,
+          date: item.fieldData?.['publish-date'] || 'No date',
+          summary: item.fieldData?.['post-summary'] || 'No summary available',
+          content: item.fieldData?.['post-body'] || 'No content available',
+        })));
       })
       .catch((error) => console.error(error));
   }, []);
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Blog 📚</Text>
+      <Text style={styles.title}>Blogs</Text>
       {posts.map((post) => (
-        <TouchableOpacity key={post.id} style={styles.postContainer} onPress={() => navigation.navigate('BlogDetails', { post })}>
-          {post.image ? (
-            <Image source={post.image} style={styles.image} />
-          ) : (
-            <Text>No Image Available</Text>
-          )}
-          <Text style={styles.postTitle}>{post.title}</Text>
-          <Text style={styles.postDate}>{post.date}</Text>
-          <Text style={styles.postContent}>
-            {post.summary}
-          </Text>
-        </TouchableOpacity>
+        <BlogCard
+          key={post.id}
+          title={post.title}
+          image={post.image}
+          date={post.date}
+          post={post.summary}
+          onPress={() => navigation.navigate('BlogDetails', { post })}
+        />
+
       ))}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    padding: 20, 
-    backgroundColor: '#fff' 
-},
-  title: { 
-    fontSize: 26, 
-    fontWeight: 'bold', 
-    marginBottom: 20 
-},
-  postContainer: { 
-    marginBottom: 30 
-},
-  postTitle: { 
-    fontSize: 20, 
-    fontWeight: 'bold' 
-},
-  postDate: { 
-    fontSize: 14, 
-    color: 'gray' 
-},
-  postContent: { 
-    fontSize: 16, 
-    marginTop: 10,
-},
-  image: { 
-    width: '100%', 
-    height: 200, 
-    marginBottom: 10 
-}
+  container: {
+    padding: 20,
+    backgroundColor: '#fff'
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: 20
+  }
 });
 
 export default Blogs;
