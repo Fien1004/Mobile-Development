@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   searchInput: {
     width: "90%",
     height: 40,
-    marginVertical: 20,
+    marginVertical: 10,
     padding: 10,
     borderColor: "gray",
     borderWidth: 1,
