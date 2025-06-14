@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    //Door CartProvider rond je navigatie te zetten, kunnen alle schermen (ProductDetails, CartScreen, enz.) gebruik maken van useContext(CartContext) zonder foutmeldingen.
+    //zodat alle componenten toegang hebben tot de winkelmandje context  
     <CartProvider> 
     <NavigationContainer>
       <Stack.Navigator>

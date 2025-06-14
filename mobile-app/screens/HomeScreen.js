@@ -5,24 +5,26 @@ const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const GoProducts = () => {
-    navigation.navigate("Products");
+    navigation.navigate("Products"); // Navigeert naar de productpagina
   };
 
   const GoComingSoon = () => {
-    navigation.navigate("ComingSoon");
+    navigation.navigate("ComingSoon"); // Navigeert naar de Coming Soon pagina
   };
 
   const GoBlogs = () => {
-    navigation.navigate("Blogs");
+    navigation.navigate("Blogs"); // Navigeert naar de Blogs pagina
   };
 
   return (
   <View style={styles.buttonContainer}>
+    {/* Logo bovenaan */}
     <Image
       source={require("../images/Funko.svg.png")}
       style={styles.logo}
     />
 
+    {/* Zoekbalk */}
     <TextInput
       style={styles.searchInput}
       placeholder="Zoeken..."
@@ -30,16 +32,19 @@ const HomeScreen = ({ navigation }) => {
       onChangeText={setSearchQuery}
     />
 
+    {/* Knop naar productenpagina */}
     <TouchableOpacity style={styles.button} onPress={GoProducts}>
       <Image source={require("../images/SabrinaCarpenter.png")} style={styles.buttonImage} />
       <Text style={styles.buttonText}>POP!</Text>
     </TouchableOpacity>
 
+    {/* Knop naar "Coming Soon" pagina */}
     <TouchableOpacity style={styles.button} onPress={GoComingSoon}>
       <Image source={require("../images/ComingSoonCasper.png")} style={styles.buttonImage} />
       <Text style={styles.buttonText}>COMING SOON</Text>
     </TouchableOpacity>
 
+    {/* Knop naar blogpagina */}
     <TouchableOpacity style={styles.button} onPress={GoBlogs}>
       <Image source={require("../images/Pop_Logo.png")} style={styles.buttonImage} />
       <Text style={styles.buttonText}>BLOGS</Text>

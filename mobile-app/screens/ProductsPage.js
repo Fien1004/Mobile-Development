@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import ProductCard from "../components/ProductCards";
 import { Picker } from "@react-native-picker/picker";
 
+// Mapping van categorie-ID's naar leesbare namen
 const categoriesNames = {
   "": "Alle Categoriën",
   "6843fee0e4e81444ee1ddacd": "POP! PINS",
@@ -21,6 +22,7 @@ const Products = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("price-asc");
 
+  // Data ophalen van de Webflow API bij het laden van het component
   useEffect(() => {
     fetch("https://api.webflow.com/v2/sites/67a5bf80f1c432d67c07e9b3/products", {
       headers: {
@@ -33,6 +35,7 @@ const Products = ({ navigation }) => {
         return response.json();
       })
       .then((data) =>
+        // Data omvormen naar bruikbaar formaat voor de ProductCard component
         setProducts(
           data.items.map((item) => ({
             id: item.product.id,
@@ -52,7 +55,7 @@ const Products = ({ navigation }) => {
   const filteredProducts = products
     .filter(
       (p) =>
-        p.category !== "COMING SOON" && // Voeg deze regel toe om producten met de categorie "COMING SOON" uit te sluiten
+        p.category !== "COMING SOON" && // "COMING SOON"-producten uitsluiten
         (selectCategory === "" || p.category === selectCategory) &&
         p.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
@@ -66,6 +69,7 @@ const Products = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Zoekveld */}
       <TextInput
         style={styles.searchInput}
         placeholder="Zoeken..."
@@ -73,6 +77,7 @@ const Products = ({ navigation }) => {
         onChangeText={setSearchQuery}
       />
 
+      {/* Categorie filter */}
       <Picker
         selectedValue={selectCategory}
         onValueChange={(value) => setSelectCategory(value)}
@@ -84,6 +89,7 @@ const Products = ({ navigation }) => {
         ))}
       </Picker>
 
+      {/* Sorteer opties */}
       <Picker
         selectedValue={sortOption}
         onValueChange={(value) => setSortOption(value)}
@@ -95,6 +101,7 @@ const Products = ({ navigation }) => {
         <Picker.Item label="Naam: Z-A" value="name-desc" />
       </Picker>
 
+      {/* Productenlijst */}
       <ScrollView>
         {filteredProducts.map((product) => (
           <ProductCard

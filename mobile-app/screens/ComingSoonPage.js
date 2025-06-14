@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import ProductCard from "../components/ProductCards";
 import { Picker } from "@react-native-picker/picker";
 
+
+// Mapping van categorie-ID's naar leesbare namen
 const categoriesNames = {
   "": "Alle Categoriën",
   "6843fee0e4e81444ee1ddacd": "POP! PINS",
@@ -16,10 +18,11 @@ const categoriesNames = {
 };
 
 const ComingSoon = ({ navigation }) => {
-  const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("price-asc");
+  const [products, setProducts] = useState([]); // Alle opgehaalde producten
+  const [searchQuery, setSearchQuery] = useState("");// Zoekterm van gebruiker
+  const [sortOption, setSortOption] = useState("price-asc"); // Huidige sorteermethode
 
+  // Data ophalen van de Webflow API bij het laden van het component
   useEffect(() => {
     fetch("https://api.webflow.com/v2/sites/67a5bf80f1c432d67c07e9b3/products", {
       headers: {
@@ -32,6 +35,7 @@ const ComingSoon = ({ navigation }) => {
         return response.json();
       })
       .then((data) =>
+        // Producten mappen naar een bruikbaar formaat
         setProducts(
             data.items.map((item) => ({
               id: item.product.id,
@@ -52,9 +56,10 @@ const ComingSoon = ({ navigation }) => {
     .filter(
       (p) =>
         p.category === "COMING SOON" && // Alleen producten met de categorie "COMING SOON" weergeven
-        p.title.toLowerCase().includes(searchQuery.toLowerCase())
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) // Zoekterm toepassen op titel
     )
     .sort((a, b) => {
+      // Sorteer op geselecteerde optie
       if (sortOption === "price-asc") return a.price - b.price;
       if (sortOption === "price-desc") return b.price - a.price;
       if (sortOption === "name-asc") return a.title.localeCompare(b.title);
@@ -65,6 +70,8 @@ const ComingSoon = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>Coming Soon</Text>
+      
+      {/* Zoekveld */}
       <TextInput
         style={styles.searchInput}
         placeholder="Zoeken..."
@@ -72,6 +79,7 @@ const ComingSoon = ({ navigation }) => {
         onChangeText={setSearchQuery}
       />
 
+      {/* Sorteeropties */}
       <Picker
         selectedValue={sortOption}
         onValueChange={(value) => setSortOption(value)}
@@ -83,6 +91,7 @@ const ComingSoon = ({ navigation }) => {
         <Picker.Item label="Naam: Z-A" value="name-desc" />
       </Picker>
 
+      {/* Lijst met producten */}
       <ScrollView>
         {filteredProducts.map((product) => (
           <ProductCard

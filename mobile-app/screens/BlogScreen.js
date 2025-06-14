@@ -3,9 +3,12 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import BlogCard from '../components/BlogCards.js';
 
 const Blogs = ({ navigation }) => {
+  // Houdt de blogposts bij in een state
   const [posts, setPosts] = useState([]);
 
+  // useEffect wordt eenmalig uitgevoerd bij het laden van de component
   useEffect(() => {
+    // Haal de blogposts op van de Webflow API
     fetch("https://api.webflow.com/v2/collections/67bc2fbfc4a256d60993f2a7/items", {
       headers: {
         Authorization:
@@ -17,6 +20,7 @@ const Blogs = ({ navigation }) => {
         return response.json();
       })
       .then((data) => {
+        // Zet de opgehaalde data om in een vereenvoudigde posts-array
         setPosts(data.items.map((item) => ({
           id: item._id,
           title: item.fieldData?.name || 'No title',
@@ -30,8 +34,11 @@ const Blogs = ({ navigation }) => {
   }, []);
 
   return (
+    // Scrollbare weergave voor alle blogposts
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Blogs</Text>
+
+      {/* Voor elke blogpost maken we een BlogCard aan */}
       {posts.map((post) => (
         <BlogCard
           key={post.id}

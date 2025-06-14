@@ -1,18 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { CartContext } from '../components/CartContext.js'; // ✅ Zorg dat dit pad klopt
+import { CartContext } from '../components/CartContext.js';
 
 const ProductDetails = ({ route }) => {
+  // Haal het product uit de route parameters
   const { product } = route.params;
   const { id, title, subtitle, price, image } = product;
 
+  // Zorg ervoor dat prijs een getal is, standaard naar 0 als het niet lukt
   const parsedPrice = parseFloat(price) || 0;
+  // State voor hoeveelheid en totale prijs
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(parsedPrice);
 
-  const { addToCart } = useContext(CartContext); // ✅ Haal addToCart uit context
+  // Haal de addToCart functie uit de CartContext
+  const { addToCart } = useContext(CartContext);
 
+  // Update de totale prijs wanneer de hoeveelheid verandert
   const increaseQuantity = () => {
     setQuantity((prevQuantity) => {
       const newQuantity = prevQuantity + 1;
@@ -21,6 +26,7 @@ const ProductDetails = ({ route }) => {
     });
   };
 
+  // Verlaag het aantal producten (minimum 1) en update de totale prijs
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => {
@@ -31,20 +37,26 @@ const ProductDetails = ({ route }) => {
     }
   };
 
+  // Voeg het product met de opgegeven hoeveelheid toe aan de winkelmand
   const handleAddToCart = () => {
-    addToCart(product, quantity); // ✅ Voeg toe aan winkelmandje
+    addToCart(product, quantity);
   };
 
   return (
     <View style={styles.container}>
+      {/* Toon het productbeeld */}
       <Image source={image} style={styles.image} />
+
+      {/* Toon de producttitel en prijs */}
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>€{totalPrice.toFixed(2)}</Text>
 
+      {/* Toon de beschrijving van het product, scrollbaar als het lang is */}
       <ScrollView>
         <Text style={styles.subtitle}>{subtitle}</Text>
       </ScrollView>
 
+      {/* Toon de hoeveelheid en knoppen om deze te verhogen/verlagen */}
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={decreaseQuantity}>
           <Text style={styles.quantityText}>-</Text>
@@ -57,6 +69,7 @@ const ProductDetails = ({ route }) => {
         </TouchableOpacity>
       </View>
 
+      {/* Knop om het product toe te voegen aan de winkelmand */}
       <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
         <Text style={styles.buttonText}>ADD TO CART</Text>
       </TouchableOpacity>

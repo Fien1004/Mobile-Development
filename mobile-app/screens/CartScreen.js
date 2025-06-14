@@ -1,22 +1,19 @@
 import React, { useContext } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  Alert,
+  View, Text,StyleSheet, FlatList, TouchableOpacity, Image, Alert,
 } from 'react-native';
 import { CartContext } from '../components/CartContext';
 
+// Haal de winkelmanditems en functies uit de context
 const CartScreen = () => {
   const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
 
+  // Bereken het totaalbedrag van de items in het mandje
   const total = cartItems
     .reduce((sum, item) => sum + item.price * item.quantity, 0)
     .toFixed(2);
 
+  // Functie om het winkelmandje te legen met een bevestigingsvenster
   const handleClearCart = () => {
     Alert.alert(
       'Winkelmandje leegmaken',
@@ -28,6 +25,7 @@ const CartScreen = () => {
     );
   };
 
+  // Weergave van elk individueel product in het mandje
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <Image source={item.image} style={styles.image} />
@@ -42,22 +40,27 @@ const CartScreen = () => {
     </View>
   );
 
+  // Hoofdweergave van het winkelmandje
   return (
     <View style={styles.container}>
       <Text style={styles.title}>🛒 Winkelmandje</Text>
 
       {cartItems.length === 0 ? (
+        // Toon bericht als het winkelmandje leeg is
         <Text style={styles.empty}>Je winkelmandje is leeg.</Text>
       ) : (
         <>
+          {/* Toon de lijst van items in het winkelmandje */}
           <FlatList
             data={cartItems}
             keyExtractor={(item) => item.id.toString()}
             renderItem={renderItem}
           />
 
+          {/* Toon het totaalbedrag */}
           <Text style={styles.total}>Totaal: €{total}</Text>
 
+          {/* Knop om het winkelmandje leeg te maken */}
           <TouchableOpacity style={styles.clearButton} onPress={handleClearCart}>
             <Text style={styles.clearButtonText}>Winkelmandje leegmaken</Text>
           </TouchableOpacity>
